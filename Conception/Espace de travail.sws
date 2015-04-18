@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?PowerDesigner signature="Workspace" version="15.1.0.2850"?>
+<!-- Veuillez ne pas modifier ce fichier -->
+
+<Workspace>
+	<Local Expanded="Yes">
+		<Model Expanded="Yes" ID="{14A04C3A-42C5-4A36-92E3-4C0628BDDF05}" Name="MCD" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="tg.mcd"/>
+		<Model Expanded="Yes" ID="{80C6A359-2502-4951-88BA-5443F730D6BD}" Name="MPD" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="MPD.mpd"/>
+		<Model ID="{BEAABDF2-87E3-4FC5-8498-5131AB812A13}" Name="ModeleConceptuelDonnees_1" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="ModeleConceptuelDonnees_1.mpd"/>
+		<Model ID="{8FC2EF8A-C944-4378-8191-46A028103BB7}" Loaded="No" Name="MCT annulation commande" Type="{8B5D3680-2056-4280-8B77-FBE8472CB1A8}" URL="mct annule commande.mtm"/>
+		<Model ID="{745E855C-8258-4E2F-9CE9-927B935B2391}" Loaded="No" Name="ModeleTraitements_2" Type="{8B5D3680-2056-4280-8B77-FBE8472CB1A8}" URL="mct bilan.mtm"/>
+		<Model ID="{1F55A32C-F793-4138-BDCF-9C62A9E196B2}" Loaded="No" Name="MCT validation panier" Type="{8B5D3680-2056-4280-8B77-FBE8472CB1A8}" URL="mct commande.mtm"/>
+		<Model ID="{5DD4718E-229F-42FA-9835-AB04D184ED73}" Loaded="No" Name="ModeleTraitements_4" Type="{8B5D3680-2056-4280-8B77-FBE8472CB1A8}" URL="mct panier.mtm"/>
+		<Model ID="{27DF9471-3E8C-4980-8680-BAC930BE9F9B}" Loaded="No" Name="ModeleTraitements_3" Type="{8B5D3680-2056-4280-8B77-FBE8472CB1A8}" URL="mct wesh.mtm"/>
+		<Model Expanded="Yes" ID="{14E6EB18-EC76-4141-97FE-E6561DC55473}" Loaded="No" Name="ModeleTraitements_1" Type="{8B5D3680-2056-4280-8B77-FBE8472CB1A8}" URL="MOT1.mtm"/>
+		<Model ID="{0458044E-0CB3-4B11-AC14-344A5728D20D}" Loaded="No" Name="ModeleTraitements_2" Type="{8B5D3680-2056-4280-8B77-FBE8472CB1A8}" URL="MOT bilan.mtm"/>
+		<Model ID="{8509F007-EF91-4162-960F-36AE0904678F}" Loaded="No" Name="MCT ajouter article" Type="{8B5D3680-2056-4280-8B77-FBE8472CB1A8}" URL="MCT ajouter article.mtm"/>
+	</Local>
+	<BrowserModule Name="Référentiel"/>
+</Workspace>
