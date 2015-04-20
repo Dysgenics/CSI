@@ -1,6 +1,8 @@
 /*==============================================================*/
 /* Nom de SGBD :  MySQL 5.0                                     */
 /* Date de création :  18/04/2015 13:14:07                      */
+/* AJOUT de 4 clients après la création de la BDD		*/
+/* AJOUT de 2 magasins après la création de la BDD		*/
 /*==============================================================*/
 
 
@@ -61,7 +63,7 @@ create table BENEFICIE
 /*==============================================================*/
 create table BILAN
 (
-   ID_BILAN             int not null,
+   ID_BILAN             int not null AUTO_INCREMENT,
    ID_MAGASIN           int not null,
    DEBUTPERIODE         date not null,
    FINPERIODE           date not null,
@@ -75,7 +77,7 @@ create table BILAN
 /*==============================================================*/
 create table CATEGORIE
 (
-   ID_CATEGORIE         int not null,
+   ID_CATEGORIE         int not null AUTO_INCREMENT,
    LIBELLE_CATEG        text,
    primary key (ID_CATEGORIE)
 );
@@ -85,7 +87,7 @@ create table CATEGORIE
 /*==============================================================*/
 create table CLIENT
 (
-   ID_CLI               int not null,
+   ID_CLI               int not null AUTO_INCREMENT,
    NOM_CLI              text,
    PRENOM_CLI           text,
    ADRESSE_CLI          text,
@@ -100,7 +102,7 @@ create table CLIENT
 /*==============================================================*/
 create table COMMANDE
 (
-   ID_COMMANDE          int not null,
+   ID_COMMANDE          int not null AUTO_INCREMENT,
    ID_CLI               int not null,
    ID_RETRAIT           int,
    ID_MAGASIN           int not null,
@@ -148,7 +150,7 @@ create table HORAIRE
 /*==============================================================*/
 create table MAGASIN
 (
-   ID_MAGASIN           int not null,
+   ID_MAGASIN           int not null AUTO_INCREMENT,
    NOM_MAGASIN          text,
    NUM_RUE              text,
    NOM_RUE              text,
@@ -175,7 +177,7 @@ create table OFFRE_PROMO
 /*==============================================================*/
 create table PRODUIT
 (
-   ID_PRODUIT           int not null,
+   ID_PRODUIT           int not null AUTO_INCREMENT,
    ID_CATEGORIE         int not null,
    NOM_PRODUIT          text,
    PRIX                 decimal,
@@ -199,7 +201,7 @@ create table PROPOSE
 /*==============================================================*/
 create table QUAI
 (
-   ID_QUAI              int not null,
+   ID_QUAI              int not null AUTO_INCREMENT,
    ID_MAGASIN           int not null,
    NUMQUAI              int not null,
    primary key (ID_QUAI)
@@ -210,7 +212,7 @@ create table QUAI
 /*==============================================================*/
 create table REDUCTION
 (
-   ID_REDUCTION         int not null,
+   ID_REDUCTION         int not null AUTO_INCREMENT,
    DATEDEBREDUC         datetime,
    DATEFINREDUC         datetime,
    QUANTITEMINR         int,
@@ -223,7 +225,7 @@ create table REDUCTION
 /*==============================================================*/
 create table RETRAIT
 (
-   ID_RETRAIT           int not null,
+   ID_RETRAIT           int not null AUTO_INCREMENT,
    ID_QUAI              int not null,
    ID_COMMANDE          int not null,
    HEURE                time not null,
@@ -288,3 +290,56 @@ alter table RETRAIT add constraint FK_RETRAIT_A_L_HORAIRE foreign key (HEURE, DA
 alter table RETRAIT add constraint FK_RETRAIT_DE_COMMANDE foreign key (ID_COMMANDE)
       references COMMANDE (ID_COMMANDE) on delete restrict on update restrict;
 
+/*==============================================================*/
+/* Ajout des clients	                                        */
+/*==============================================================*/
+
+INSERT INTO CLIENT 
+    VALUES (0,'Papelier', 'Romain', '16 rue du Sapin', 'ThePape', 'romain.papelier@gmail.com', 0657890876),
+    (0,'Chaboissier', 'Maxime', '12 rue MC circulaire', 'Booba88', 'maxime.chaboissier@yahoo.fr', 0698906754),
+    (0,'Besson', 'Leonard', '256 boulevard du jambon', 'monmdp', 'leonard@hotmail.fr', NULL),
+   (0,'Burteaux', 'Pierre', '46 avenue de la meuse', 'meuse55','pierre.burteaux@gmail.com', 0657899765);
+
+/*==============================================================*/
+/* Ajout des magasins	                                        */
+/*==============================================================*/
+
+INSERT INTO MAGASIN
+VALUES (0, 'Chez Marco', '12', 'Rue du jardiland', 'Nancy', 54000),
+(0, 'Chez Jenko', '21', 'Jump Street', 'Vancouver', NULL),
+(0, 'Chez Schmit', '22', 'Jump Street', 'Vancouver', NULL);
+
+/*==============================================================*/
+/* Ajout des catégories	                                        */
+/*==============================================================*/
+
+INSERT INTO CATEGORIE
+VALUES (0, 'Arme blanche'),
+(0, 'Arme de poing');
+
+/*==============================================================*/
+/* Ajout des produits		                                    */
+/*==============================================================*/
+
+INSERT INTO PRODUIT
+VALUES (0, 1, 'Couteau', 20, 'Un beau couteau, View/img/img_prod/couteau.jpeg'), /* !! Chemin ne fonctionne pas */
+(0, 1,'Club de golf', 89, 'Pour jouer au golf', 'NULL'),
+(0, 2, 'Revolver Colt', 189, 'Pistolet de Cow Boy', 'NULL'),
+(0, 2, 'Pistolet Luger', 159, 'Meilleur vente', 'NULL');
+
+/*==============================================================*/
+/* Ajout dans propose	                                    */
+/*==============================================================*/
+
+INSERT INTO PROPOSE
+VALUES (1, 1),
+(1, 2),
+(2, 1),
+(3, 2),
+(4, 2);
+
+/*
+CREATE EVENT CREATE_BILAN
+ON SCHEDULE EVERAY 1 DAY STARTS '2015-04-19 21:45:00'
+DO INSERT INTO projet_CSI.BILAN
+VALUES (0, 1, DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY), CURRENT_DATE, */
