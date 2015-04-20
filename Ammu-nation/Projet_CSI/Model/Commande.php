@@ -3,7 +3,7 @@
 
 include_once '..\..\base.php';
 
-class Commande {
+class Produit {
 
     private $id_commande;
 	private $id_cli;

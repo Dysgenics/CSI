@@ -322,10 +322,10 @@ VALUES (0, 'Arme blanche'),
 /*==============================================================*/
 
 INSERT INTO PRODUIT
-VALUES (0, 1, 'Couteau', 20, 'Un beau couteau', 'View/img/img_prod/couteau.jpeg'), /* !! Chemin ne fonctionne pas */
-(0, 1,'Club de golf', 89, 'Pour jouer au golf', NULL),
-(0, 2, 'Revolver Colt', 189, 'Pistolet de Cow Boy', NULL),
-(0, 2, 'Pistolet Luger', 159, 'Meilleur vente', NULL);
+VALUES (0, 1, 'Couteau', 20, 'Un beau couteau, View/img/img_prod/couteau.jpeg'), /* !! Chemin ne fonctionne pas */
+(0, 1,'Club de golf', 89, 'Pour jouer au golf', 'NULL'),
+(0, 2, 'Revolver Colt', 189, 'Pistolet de Cow Boy', 'NULL'),
+(0, 2, 'Pistolet Luger', 159, 'Meilleur vente', 'NULL');
 
 /*==============================================================*/
 /* Ajout dans propose	                                    */
