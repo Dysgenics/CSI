@@ -1,7 +1,7 @@
 <?php
 // On démarre la session AVANT d'écrire du code HTML
 session_start();
-// On s'amuse à créer quelques variables de session dans $_SESSION
+
 if(isset($_GET['mag'])) {
 	$_SESSION['num_mag'] = $_GET['mag'];
 }
@@ -21,6 +21,7 @@ if(isset($_GET['categ'])) {
 	<?php include("../../base.php"); ?>
 	<?php include("../../Controller/ControllerCategorie.php"); ?>
 	<?php include("../../Controller/ControllerProduit.php"); ?>
+	<?php include("../../Controller/ControllerContient.php"); ?>
 	
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 
@@ -44,6 +45,7 @@ if(isset($_GET['categ'])) {
 <div class="Colonne_categ">
 <?php
 	ControllerCategorie::ChoixCategorie();
+	//ControllerContient::Ajouterproduit(1, 2, 3, 0, 20); OK BABY 
 ?>	
 </div>
 
