@@ -2,7 +2,7 @@
 /*	width: calc(100% - 300px);*/
     width: auto;
 	height: 100px;
-	background-color: yellow;
+    padding-left: 30px;
 	/*float: left;*/
 	
 	overflow: hidden;
@@ -23,12 +23,14 @@ html {
 body {
     height: 100%;
     margin: 0px;
+    background-image: url(background.jpg);
+    background-attachment: fixed;
 }
 
 #contenu {
     height: 100%;
     
-    background-color: orange;
+  
 }
 
 .Colonne_categ {
@@ -41,7 +43,7 @@ body {
 
 .Zone_produits {
 	
-   
+   margin-left: 15px;
 	background-color: red;
 	/*display: inline-block;*/
 }
