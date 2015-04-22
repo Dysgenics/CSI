@@ -35,7 +35,7 @@ class ControllerProduit {
 		$r = Produit::findByCateg($mag, $cat);
 		$output = '<table>';
 		foreach ($r as $row) {
-			$output .= '<tr><td>'.'<img src='.$row['img_url'] .' width=150px height=110px;/>'.'</td><td>' .$row['nom_produit'] . '</td></tr>';
+			$output .= '<tr><td class="ListeProduits_td_img">'.'<img src='.$row['img_url'] .' width=150px height=110px;/>'.'</td><td class="ListeProduits_desc">' .$row['nom_produit'] . '</td></tr>';
 		}
 		$output .= '</table>';
 		echo $output;
