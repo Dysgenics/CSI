@@ -322,10 +322,10 @@ VALUES (0, 'Arme blanche'),
 /*==============================================================*/
 
 INSERT INTO PRODUIT
-VALUES (0, 1, 'Couteau', 20, 'Un beau couteau', 'View/img/img_prod/couteau.jpeg'), /* !! Chemin ne fonctionne pas */
-(0, 1,'Club de golf', 89, 'Pour jouer au golf', NULL),
-(0, 2, 'Revolver Colt', 189, 'Pistolet de Cow Boy', NULL),
-(0, 2, 'Pistolet Luger', 159, 'Meilleur vente', NULL);
+VALUES (0, 1, 'Couteau', 20, 'Un beau couteau', '../../View/img/img_prod/couteau.jpeg'), /* !! Chemin ne fonctionne pas */
+(0, 1,'Club de golf', 89, 'Pour jouer au golf', '../../View/img/img_prod/club_golf.jpg'),
+(0, 2, 'Revolver Colt', 189, 'Pistolet de Cow Boy', '../../View/img/img_prod/revolver_colt.png'),
+(0, 2, 'Pistolet Luger', 159, 'Meilleur vente', '../../View/img/img_prod/luger_p08.png');
 
 INSERT INTO PRODUIT
 VALUES (0, 2, "Beretta PX4 Storm", 989, "Px4 Storm avec chargeur de réserve. Calibre : 9 para Capacité chargeur : 17 coups", "../../View/img/img_prod/beretta.jpg");
