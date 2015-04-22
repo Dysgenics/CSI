@@ -42,5 +42,64 @@ class Commande {
             $this->$name = $value;
         }
     }
+	
+	public static function CreateCommande($id_cl, $id_mag) {
+	    $query = "INSERT INTO COMMANDE
+			VALUES (0,?,0,?);";
+		
+        try {   
+            $db = Base::getConnection();
+
+            $pp = $db->prepare($query);
+			
+			//définition des paramètres
+			$pp->bindParam(1, $id_cl, PDO::PARAM_INT);
+            $pp->bindParam(2, $id_mag, PDO::PARAM_INT);
+	
+            $pp->execute();
+        } catch (PDOException $e) {
+            echo $query . "<br>";
+            throw new Exception($e->getMessage());
+        }
+    }
+	
+    public static function findByIdClient($id_cl) {
+        $query = "select * from COMMANDE where id_cli=? AND valide=0";
+        try {
+            //connexion à la BDD
+            $db = Base::getConnection();
+
+            $pp = $db->prepare($query);
+            
+            //définition des paramètres
+            $pp->bindParam(1, $id_cl, PDO::PARAM_INT);
+            //rexecution de la requète
+            $pp->execute();
+
+            //retourne un tableau d'objets commande
+            $rep = $pp->fetchAll(PDO::FETCH_OBJ);
+			
+            //création du tableau de réponse
+            $liste_commande = array();
+            //pour chaque produit renvoyé par la requète on va l'ajouter dans le tableau
+
+            foreach ($rep as $row) {
+                //une produit est représentée par un tableau
+                $commande = array(
+                    'id_commande' => $row->ID_CLI,
+                    'id_cli' => $row->ID_RETRAIT,
+					'id_magasin' => $row->ID_MAGASIN,
+					'valide' => $row->VALIDE,
+					'dateachat' => $row->DATEACHAT,
+                );
+                //ajout de la catégorie au tableau
+                $liste_commande[] = $commande;
+            }
+        } catch (PDOException $e) {
+            echo $query . "<br>";
+            throw new Exception($e->getMessage());
+        }
+        return $liste_commande;
+    }
 
 }
