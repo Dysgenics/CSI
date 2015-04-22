@@ -1,15 +1,20 @@
 .Entete {
-	width: calc(100% - 300px);
+	width: calc(100% - 350px);
     /*width: auto;*/
 	height: 100px;
-	background-color: yellow;
+	/*background-color: yellow;*/
 	float: left;
-	
+	padding-left: 50px;
 	overflow: hidden;
+	font-size: 25px;
+	font-family: 'Allerta Stencil';
+	font-weight: bold;
+	text-shadow: 0px 0px 6px rgba(0, 0, 0, 1);
+	
 }
 
 .Infos_user {
-	background-color: grey;
+	background-color: rgba(0,0,0,0.8);
 	width: 300px;
 	height: 100px;
 	float: right;
@@ -21,28 +26,72 @@ html {
 }
 
 body {
+    font-family: 'Lato', Calibri, Arial, sans-serif;
     height: 100%;
     margin: 0px;
+    color: white;
+    background: url(background.jpg) no-repeat center center fixed; 
+     -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #contenu {
     height: 100%;
     
-    background-color: orange;
+   /* background-color: orange;*/
 }
 
 .Colonne_categ {
 	width: 200px;
 	height: 100%;
-	background-color: blue;
+	background-color: rgba(0,0,0,0.8);
 	float: left;
    /* display: inline-block;*/
 }
 
+.Colonne_categ ul {
+    padding: 0px;
+}
+
+.Colonne_categ h2 {
+    text-align: center;
+}
+
+.Colonne_categ li {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+    transition: background 0.2s;
+    background-color: rgba(0,0,0,0);
+    list-style-type: none;
+}
+
+.Colonne_categ li:hover {
+    text-align: center;
+    transition: background 0.2s;
+    background-color: #BF3115;
+    list-style-type: none;
+}
+
+.Colonne_categ a {
+    display: block;
+    text-decoration: none;
+}
+
+.Colonne_categ a:hover {
+    color: white;
+}
+
+.Colonne_categ a:visited {
+    color: white;
+}
+
 .Zone_produits {
-	
+	margin-left: 220px;
    
-	background-color: red;
+	background-color: rgba(0,0,0,0.8);
 	/*display: inline-block;*/
 }
 

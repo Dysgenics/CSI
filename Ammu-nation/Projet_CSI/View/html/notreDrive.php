@@ -15,7 +15,7 @@ if(isset($_GET['categ'])) {
 <head>	
 	<meta charset="UTF-8"/>
 	<link rel="stylesheet" href="../css/styles.css">
-	
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Allerta+Stencil" />
 	<script type="text/javascript" src="../js/script.js"></script>
 	
 	<?php include("../../base.php"); ?>
@@ -68,6 +68,7 @@ if (isset($_SESSION['email'])) {
 
 <div id="contenu">
 <div class="Colonne_categ">
+<h2>Catégories</h2>
 <?php
 	ControllerCategorie::ChoixCategorie();
 	//ControllerContient::Ajouterproduit(1, 2, 3, 0, 20); OK BABY 
