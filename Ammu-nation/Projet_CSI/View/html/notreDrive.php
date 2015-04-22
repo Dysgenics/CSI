@@ -30,6 +30,7 @@ if(isset($_GET['categ'])) {
 </head>
 
 <body>
+<header>
 <div class="Entete">
 	<h1> Ammu-nation </h1>
 </div>
@@ -63,7 +64,9 @@ if (isset($_SESSION['email'])) {
     
 }	?>
 </div>
+</header>
 
+<div id="contenu">
 <div class="Colonne_categ">
 <?php
 	ControllerCategorie::ChoixCategorie();
@@ -85,7 +88,7 @@ if (isset($_SESSION['email'])) {
 ?>
 </div>
 
-
+</div>
 
 </body>
 
