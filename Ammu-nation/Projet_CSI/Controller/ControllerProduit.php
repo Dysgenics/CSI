@@ -15,14 +15,17 @@ class ControllerProduit {
     */
 	public static function AfficherProduit($mag) {
 			$r = Produit::findAll($mag);
-			$output = '<tr>';
+			$output = '<h2>Tous les produits</h2><table>';
+			
 			foreach ($r as $row) {
-				$output .= '<td>'.'<img src=# width=150px height=110px;/>'.'</td><td><a href=#>' .$row['nom_produit'] . '</a></td>';
+			    $output .= '<tr>';
+				$output .= '<td class="ListeProduits_td_img">'.'<img src='.$row['img_url'] .' width=150px height=110px;/>'.'</td><td class="ListeProduits_desc"><a href="?prod='. $row['id_produit']. '">' .$row['nom_produit'] . '</a></td>';
+				$output .= '</tr>';
 			}
 			
 			// <a href="?prod='. $row['id_produit'] .'">
-			$output .= '</tr>';
 			
+			$output .= '</table>';
 			echo $output;
 	}
 	
@@ -48,6 +51,8 @@ class ControllerProduit {
 		$output = '<div class="test">';
 		
 			$output .= '<h2>'. $row['nom_produit'] . '</h2><img src="'.$row['img_url'] .'" width=400px height=400px;/><p> Description : <br><br>'. $row['libelle'] .'</p><p> Prix : '. $row["prix"] .'$</p>';
+			
+			
 		
 		$output .= '</div>';
 		echo $output;

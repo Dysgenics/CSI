@@ -13,6 +13,14 @@
 	
 }
 
+.Entete h1 {
+    margin: 0px;
+}
+
+.Entete h4 {
+    margin: 0px;
+}
+
 .Infos_user {
 	background-color: rgba(0,0,0,0.8);
 	width: 300px;
@@ -30,11 +38,11 @@ body {
     height: 100%;
     margin: 0px;
     color: white;
-    background: url(background.jpg) no-repeat center center fixed; 
+    background: url(background.jpg) /*no-repeat center center fixed; 
      -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
+    background-size: cover;*/
 }
 
 #contenu {
@@ -49,6 +57,75 @@ body {
 	background-color: rgba(0,0,0,0.8);
 	float: left;
    /* display: inline-block;*/
+}
+
+#choixMagContainer {
+    position: absolute;
+    width: 100%;
+    padding-top: 225px;
+}
+
+#choixMagBanner {
+    background-color: rgba(10,10,10,1);
+    
+}
+
+#choixMagCenter h1 {
+    font-size: 50px;
+	font-family: 'Allerta Stencil';
+	font-weight: bold;
+	
+}
+
+#choixMagCenter ul {
+    padding: 0px;
+}
+
+#choixMagCenter li {
+    list-style-type: none;
+    
+    margin: 0px;
+    padding: 0px;
+   
+    text-align: center;
+    transition: background 0.2s;
+    text-decoration: none;
+    list-style-type: none;
+    color: white;
+}
+
+#choixMagCenter a {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: block;
+    text-decoration: none;
+}
+
+#choixMagCenter a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+#choixMagCenter a:hover {
+    color: white;
+    text-align: center;
+    transition: background 0.2s;
+    background-color: #BF3115;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+#liTousLesProduits:hover {
+    background-color: #4E49B3;
+}
+
+#choixMagCenter {
+    text-align: center;
+    /*display: inline-block;*/
+    
+    width: 400px;
+    margin-left: calc(50% - 200px);
+    padding-bottom: 10px;
 }
 
 .Colonne_categ ul {

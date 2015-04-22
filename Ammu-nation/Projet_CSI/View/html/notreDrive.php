@@ -1,8 +1,13 @@
 <?php
 // On démarre la session AVANT d'écrire du code HTML
+
 session_start();
 if(isset($_GET['mag'])) {
 	$_SESSION['num_mag'] = $_GET['mag'];
+	$mag = Magasin::findById($_SESSION['num_mag']);
+	$_SESSION['mag'] = array();
+	var_dump($mag);
+	$_SESSION['mag'] = $mag;
 }
 if(isset($_GET['categ'])) {
 	$_SESSION['num_categ'] = $_GET['categ'];
@@ -22,6 +27,7 @@ if(isset($_GET['categ'])) {
 	<?php include("../../Controller/ControllerProduit.php"); ?>
 	<?php include("../../Controller/ControllerContient.php"); ?>
 	<?php include("../../Model/Client.php"); ?>
+	<?php include("../../Model/Magasin.php"); ?>
 	
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 
@@ -32,6 +38,15 @@ if(isset($_GET['categ'])) {
 <header>
 <div class="Entete">
 	<h1> Ammu-nation </h1>
+	<?php 
+$mag = Magasin::findById($_SESSION['num_mag']);
+	$_SESSION['mag'] = array();
+	
+	$_SESSION['mag'] = $mag;
+	echo '<h4>' . $_SESSION['mag']['nom_magasin'] . '</h4>';
+	?>
+
+	
 </div>
 
 <div class ="Infos_user">
@@ -79,7 +94,7 @@ if (isset($_SESSION['email'])) {
 	if(isset($_GET['prod'])) {
 		ControllerProduit::DetailProduit($_GET['prod']);	
 	} else {
-		if(isset($_SESSION['num_categ'])) {
+		if(isset($_SESSION['num_categ']) && $_SESSION['num_categ'] != -1) {
 			ControllerProduit::AfficherProduitCateg($_SESSION['num_mag'], $_SESSION['num_categ']);
 		} else {
 			ControllerProduit::AfficherProduit($_SESSION['num_mag']);

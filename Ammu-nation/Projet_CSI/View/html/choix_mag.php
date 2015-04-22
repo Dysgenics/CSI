@@ -6,7 +6,8 @@ session_start();
 <html>
 <head>	
 	<meta charset="UTF-8"/>
-	<link rel="stylesheet" href="../css/xyz.css">
+	<link rel="stylesheet" href="../css/styles.css">
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Allerta+Stencil" />
 	
 	<script type="text/javascript" src="../js/xyz.js"></script>
 
@@ -17,6 +18,9 @@ session_start();
 </head>
 
 <body>
+<div id="choixMagContainer">
+<div id="choixMagBanner">
+<div id="choixMagCenter">
 <h1> Ammu-nation </h1>
 
 <h2> Choisir votre magasin : </h2>
@@ -24,4 +28,7 @@ session_start();
 <?php
 	ControllerMagasin::ChoixMagasin();
 ?>	
+</div>
+</div>
+</div>
 </body>

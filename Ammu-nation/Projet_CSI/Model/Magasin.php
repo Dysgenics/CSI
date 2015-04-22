@@ -42,6 +42,41 @@ class Magasin {
             $this->$name = $value;
         }
     }
+    
+    public static function findById($id) {
+        $query = "select * from MAGASIN where ID_MAGASIN=?";
+        try {
+            //connexion à la BDD
+            $db = Base::getConnection();
+
+            $pp = $db->prepare($query);
+            
+            //définition des paramètres
+            $pp->bindParam(1, $id, PDO::PARAM_INT);
+            //rexecution de la requète
+            $pp->execute();
+
+            //retourne un tableau d'objets produit
+            $row = $pp->fetch(PDO::FETCH_OBJ);
+            //création du tableau de réponse
+            $magasin = array();
+
+           
+                $magasin = array(
+                    'id_magasin' => $row->ID_MAGASIN,
+                    'nom_magasin' => $row->NOM_MAGASIN,
+					'num_rue' => $row->NUM_RUE,
+					'nom_rue' => $row->NOM_RUE,
+					'ville' => $row->VILLE,
+					'cp' => $row->CP
+                );
+                
+        } catch (PDOException $e) {
+            echo $query . "<br>";
+            throw new Exception($e->getMessage());
+        }
+        return $magasin;
+    }
 
     /**
      * Retourne tous les magasins contenus dans la BDD
