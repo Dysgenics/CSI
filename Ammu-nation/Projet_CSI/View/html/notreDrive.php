@@ -14,7 +14,7 @@ if(isset($_GET['categ'])) {
 <html>
 <head>	
 	<meta charset="UTF-8"/>
-	<link rel="stylesheet" href="../../css/styles.css">
+	<link rel="stylesheet" href="../css/styles.css">
 	
 	<script type="text/javascript" src="../js/script.js"></script>
 	
@@ -22,6 +22,7 @@ if(isset($_GET['categ'])) {
 	<?php include("../../Controller/ControllerCategorie.php"); ?>
 	<?php include("../../Controller/ControllerProduit.php"); ?>
 	<?php include("../../Controller/ControllerContient.php"); ?>
+	<?php include("../../Model/Client.php"); ?>
 	
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 
@@ -29,19 +30,40 @@ if(isset($_GET['categ'])) {
 </head>
 
 <body>
-<header>
-<div class ="Infos_user">
-	<p> Connexion -> AJAX et inscription </p>
-	<p> A la connexion du client, créer automatiquement une commande, ou récupérer l'ancienne </p>
-</div>
-
 <div class="Entete">
 	<h1> Ammu-nation </h1>
 </div>
 
+<div class ="Infos_user">
+<?php
+// Si l'utilisateur est connecté
+if (isset($_SESSION['email'])) {
+	echo "test2";
+    // On affiche un message, son nom d'utilisateur et un bouton pour se déconnecter
+    echo "<div class=\"connexion\">\n";
+    echo "Vous êtes connectés en tant que " . $_SESSION['email'];
+    echo "<form action=\"connection.php\" method=\"GET\">\n";
+    echo "<input class=\"bouton\" type=\"submit\" value=\"Se déconnecter\"/>\n";
+    echo "</form>\n";
+    echo "</div>\n";
+	 echo $_SESSION['id_cli'];
+    
+} else {
+	echo "test";
+    // Sinon, on affiche des champs et un bouton pour qu'il puisse se connecter
+    echo "<div class=\"connexion\">\n";
+    echo "<div class=\"input\">\n";
+    echo "<form action=\"connection.php\" method=\"POST\">\n";
+    echo "<input class=\"champ\" type=\"text\" name=\"email\" value=\"email\" size=\"20\"/>\n";
+    echo "<input class=\"champ\" type=\"password\" name=\"mdp\" value=\"mdp\"/>\n";
+    echo "<input class=\"bouton\" type=\"submit\" value=\"Se connecter\"/>\n";
+    echo "</form>\n";
+    echo "</div>\n";
+    echo "</div>\n";
+    
+}	?>
+</div>
 
-</header>
-<div id="contenu">
 <div class="Colonne_categ">
 <?php
 	ControllerCategorie::ChoixCategorie();
@@ -61,10 +83,6 @@ if(isset($_GET['categ'])) {
 		}
 	}
 ?>
-
-</div>
-
-
 </div>
 
 
