@@ -1,7 +1,6 @@
 <?php
 // On démarre la session AVANT d'écrire du code HTML
 session_start();
-
 if(isset($_GET['mag'])) {
 	$_SESSION['num_mag'] = $_GET['mag'];
 }
@@ -86,6 +85,7 @@ if (isset($_SESSION['email'])) {
 			ControllerProduit::AfficherProduit($_SESSION['num_mag']);
 		}
 	}
+	// ControllerContient::AfficherPanier($_SESSION['id_com']); Il faut afficher les noms des produits
 ?>
 </div>
 

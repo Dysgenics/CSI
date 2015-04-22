@@ -15,11 +15,13 @@ class ControllerProduit {
     */
 	public static function AfficherProduit($mag) {
 			$r = Produit::findAll($mag);
-			$output = '<ul>';
+			$output = '<tr>';
 			foreach ($r as $row) {
-				$output .= '<li><a href="?prod='. $row['id_produit'] .'">' . $row['nom_produit'] . '</a></li>';
+				$output .= '<td>'.'<img src=# width=150px height=110px;/>'.'</td><td><a href=#>' .$row['nom_produit'] . '</a></td>';
 			}
-			$output .= '</ul>';
+			
+			// <a href="?prod='. $row['id_produit'] .'">
+			$output .= '</tr>';
 			
 			echo $output;
 	}
@@ -31,11 +33,11 @@ class ControllerProduit {
     */
 	public static function AfficherProduitCateg($mag, $cat) {
 		$r = Produit::findByCateg($mag, $cat);
-		$output = '<ul>';
+		$output = '<table>';
 		foreach ($r as $row) {
-			$output .= '<li><a href="?prod='. $row['id_produit'] .'">' . $row['nom_produit'] . '</a></li>';
+			$output .= '<tr><td>'.'<img src='.$row['img_url'] .' width=150px height=110px;/>'.'</td><td>' .$row['nom_produit'] . '</td></tr>';
 		}
-		$output .= '</ul>';
+		$output .= '</table>';
 		echo $output;
 	}
 	

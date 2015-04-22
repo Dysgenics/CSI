@@ -327,6 +327,9 @@ VALUES (0, 1, 'Couteau', 20, 'Un beau couteau', 'View/img/img_prod/couteau.jpeg'
 (0, 2, 'Revolver Colt', 189, 'Pistolet de Cow Boy', NULL),
 (0, 2, 'Pistolet Luger', 159, 'Meilleur vente', NULL);
 
+INSERT INTO PRODUIT
+VALUES (0, 2, "Beretta PX4 Storm", 989, "Px4 Storm avec chargeur de réserve. Calibre : 9 para Capacité chargeur : 17 coups", "../../View/img/img_prod/beretta.jpg");
+
 /*==============================================================*/
 /* Ajout dans propose	                                    */
 /*==============================================================*/
@@ -336,7 +339,8 @@ VALUES (1, 1),
 (1, 2),
 (2, 1),
 (3, 2),
-(4, 2);
+(4, 2),
+(5, 2);
 
 /*
 CREATE EVENT CREATE_BILAN

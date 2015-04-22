@@ -14,7 +14,7 @@ class ControllerCommande {
 			
 			$pp->bindParam(1, $id_cl, PDO::PARAM_INT);
 			$pp->execute();
-			ControllerCommande::CreateCommande($id_cl, $id_mag);
+
 			if ($pp->fetchColumn() == 0) {
 				Commande::CreateCommande($id_cl, $id_mag);
 				
@@ -34,25 +34,6 @@ class ControllerCommande {
             throw new Exception($e->getMessage());
 		}
 	}
-	
-	//Problème d'insertion
-	public static function CreateCommande($id_cl, $id_mag) {
-	    $query = "INSERT INTO COMMANDE
-			VALUES (2,?,0,?,0,0,NULL);";
-        try {   
-            $db = Base::getConnection();
 
-            $pp = $db->prepare($query);
-			
-			//définition des paramètres
-			$pp->bindParam(2, $id_cl, PDO::PARAM_INT);
-            $pp->bindParam(4, $id_mag, PDO::PARAM_INT);
-	
-            $pp->execute();
-        } catch (PDOException $e) {
-            echo $query . "<br>";
-            throw new Exception($e->getMessage());
-        }
-    }
 }
 ?>

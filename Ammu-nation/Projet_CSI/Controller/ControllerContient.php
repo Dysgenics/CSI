@@ -35,6 +35,22 @@ class ControllerContient {
             throw new Exception($e->getMessage());
         }
     }
+	
+	/* 
+	 * 
+	*/
+	public static function AfficherPanier($id_com) {
+		//on recherche toutes les catégories
+        $r = Contient::findAll($id_com);
+		$output = '<ul>';
+        foreach ($r as $row) {
+			
+			$output .= '<li>' . $row['id_produit'] . '<p> Afficher le nom </p>' .'</li>';
+		}
+		$output .= '</ul>';
+		
+		echo $output;
+	}
 }
 
 ?>

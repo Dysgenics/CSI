@@ -90,7 +90,7 @@ class Commande {
                     'id_cli' => $row->ID_RETRAIT,
 					'id_magasin' => $row->ID_MAGASIN,
 					'valide' => $row->VALIDE,
-					'dateachat' => $row->DATEACHAT,
+					'dateachat' => $row->DATEACHAT
                 );
                 //ajout de la catégorie au tableau
                 $liste_commande[] = $commande;
