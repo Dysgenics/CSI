@@ -1,6 +1,6 @@
 <?php
 
-include_once '..\..\Model\Produit.php';
+include_once '../../Model/Produit.php';
 
 /*
 * Controleur d'un produit
@@ -33,20 +33,22 @@ class ControllerProduit {
     */
 	public static function AfficherProduitCateg($mag, $cat) {
 		$r = Produit::findByCateg($mag, $cat);
-		$output = '<table>';
+		$cat = Categorie::findById($cat);
+		
+		$output = '<h2>'. $cat->libelle_categ . '</h2><table>';
 		foreach ($r as $row) {
-			$output .= '<tr><td class="ListeProduits_td_img">'.'<img src='.$row['img_url'] .' width=150px height=110px;/>'.'</td><td class="ListeProduits_desc">' .$row['nom_produit'] . '</td></tr>';
+			$output .= '<tr><td class="ListeProduits_td_img">'.'<img src='.$row['img_url'] .' width=150px height=110px;/>'.'</td><td class="ListeProduits_desc"><a href="?prod='. $row['id_produit']. '">' .$row['nom_produit'] . '</a></td></tr>';
 		}
 		$output .= '</table>';
 		echo $output;
 	}
 	
 	public static function DetailProduit($id_prod) {
-		$r = Produit::findById($id_prod);
+		$row = Produit::findById($id_prod);
 		$output = '<div class="test">';
-		foreach ($r as $row) {
-			$output .= '<p> Libellé:'. $row['libelle'] .'</p><p> Afficher le reste </p>';
-		}
+		
+			$output .= '<h2>'. $row['nom_produit'] . '</h2><img src="'.$row['img_url'] .'" width=400px height=400px;/><p> Description : <br><br>'. $row['libelle'] .'</p><p> Prix : '. $row["prix"] .'$</p>';
+		
 		$output .= '</div>';
 		echo $output;
 	}

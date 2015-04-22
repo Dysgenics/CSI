@@ -95,6 +95,25 @@ body {
 	/*display: inline-block;*/
 }
 
+.Zone_produits .ListeProduits_desc {
+    transition: background 0.2s;
+    width: 100%;
+}
+
+.Zone_produits .ListeProduits_desc a {
+    text-decoration: none;
+    color: white;
+}
+
+.Zone_produits .ListeProduits_desc a:hover {
+    text-decoration: underline;
+    
+}
+
+.Zone_produits .ListeProduits_desc:hover {
+    transition: background 0.2s;
+    background-color: #BF3115;
+}
 
 header {
   	overflow: hidden;

@@ -1,5 +1,5 @@
 <?php
-include_once '..\..\Base.php';
+include_once '../../base.php';
 
 /**
  * Représente un client

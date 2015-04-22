@@ -1,6 +1,6 @@
 <?php
 
-include_once '..\..\Model\Contient.php';
+include_once '../../Model/Contient.php';
 
 /*
 * Controleur de contient

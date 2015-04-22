@@ -1,7 +1,7 @@
 <?php
 
 
-include_once '..\..\base.php';
+include_once '../../base.php';
 
 class Produit {
 
@@ -64,13 +64,11 @@ class Produit {
             $pp->execute();
 
             //retourne un tableau d'objets produit
-            $rep = $pp->fetchAll(PDO::FETCH_OBJ);
+            $row = $pp->fetch(PDO::FETCH_OBJ);
             //création du tableau de réponse
-            $liste_produit = array();
+            $produit = array();
 
-            //pour chaque produit renvoyé par la requète on va l'ajouter dans le tableau
-            foreach ($rep as $row) {
-                //une produit est représentée par un tableau
+           
                 $produit = array(
                     'id_produit' => $row->ID_PRODUIT,
                     'id_categorie' => $row->ID_CATEGORIE,
@@ -79,14 +77,12 @@ class Produit {
 					'libelle' => $row->LIBELLE,
 					'img_url' => $row->IMG_URL
                 );
-                //ajout de la catégorie au tableau
-                $liste_produit[] = $produit;
-            }
+                
         } catch (PDOException $e) {
             echo $query . "<br>";
             throw new Exception($e->getMessage());
         }
-        return $liste_produit;
+        return $produit;
     }
 
     /**

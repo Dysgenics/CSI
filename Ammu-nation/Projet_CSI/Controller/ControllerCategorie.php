@@ -1,6 +1,6 @@
 <?php
 
-include_once '..\..\Model\Categorie.php';
+include_once '../../Model/Categorie.php';
 
 /*
 * Controleur d'une catégorie
