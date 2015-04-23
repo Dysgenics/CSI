@@ -38,11 +38,11 @@ body {
     height: 100%;
     margin: 0px;
     color: white;
-    background: url(background.jpg) /*no-repeat center center fixed; 
+    background: url(background.jpg) no-repeat center center fixed; 
      -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;*/
+    background-size: cover;
 }
 
 #contenu {
