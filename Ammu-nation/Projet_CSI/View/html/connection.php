@@ -25,10 +25,10 @@ if(isset($_POST['email'], $_POST['mdp'])) {
         //$a = session_start();
         // On enregistre en tant que variables de sessions, son email et son id
         $_SESSION['email'] = $em;
-        $_SESSION['id_cli'] = $client->id_cli;
+        $_SESSION['id_cli'] = intval($client->id_cli);
 		
 		/* On recherche si une commande est en cours et on en crée une si il faut */
-		ControllerCommande::GestionCommande($_SESSION['id_cli'], $_SESSION['id_mag']);	
+		ControllerCommande::GestionCommande($_SESSION['id_cli'], $_SESSION['mag']['id_magasin']);	
     }
     
 }

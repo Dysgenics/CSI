@@ -3,7 +3,7 @@
 
 session_start();
 if(isset($_GET['mag'])) {
-	$_SESSION['num_mag'] = $_GET['mag'];
+	$_SESSION['num_mag'] = intval($_GET['mag']);
 	
 }
 if(isset($_GET['categ'])) {
@@ -88,6 +88,7 @@ if (isset($_SESSION['email'])) {
 
 <div class="Zone_produits">
 <?php
+    var_dump($_SESSION);
 	if(isset($_GET['prod'])) {
 		ControllerProduit::DetailProduit($_GET['prod']);	
 	} else {
@@ -102,6 +103,10 @@ if (isset($_SESSION['email'])) {
 </div>
 
 </div>
+
+<script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/notify.min.js"></script>
 
 </body>
 

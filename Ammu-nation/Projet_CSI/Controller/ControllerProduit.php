@@ -50,7 +50,9 @@ class ControllerProduit {
 		$row = Produit::findById($id_prod);
 		$output = '<div class="test">';
 		
-			$output .= '<h2>'. $row['nom_produit'] . '</h2><img src="'.$row['img_url'] .'" width=400px height=400px;/><p> Description : <br><br>'. $row['libelle'] .'</p><p> Prix : '. $row["prix"] .'$</p>';
+			$output .= '<h2>'. $row['nom_produit'] . '</h2><img src="'.$row['img_url'] .'" width=400px height=400px;/><p> Description : <br><br>'. $row['libelle'] .'</p><p> Prix : '. $row["prix"] .'$</p>
+			<p>Quantité : <input type="number" value="1"></input>
+			<button id="addToPanierBtn" onclick="ajouterProduitAuPanier('. $row['id_produit']. ',' . $row['prix'] . ')">Ajouter au panier</button></p>';
 			
 			
 		

@@ -63,7 +63,7 @@ class Magasin {
 
            
                 $magasin = array(
-                    'id_magasin' => $row->ID_MAGASIN,
+                    'id_magasin' => intval($row->ID_MAGASIN),
                     'nom_magasin' => $row->NOM_MAGASIN,
 					'num_rue' => $row->NUM_RUE,
 					'nom_rue' => $row->NOM_RUE,

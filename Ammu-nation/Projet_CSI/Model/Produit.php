@@ -62,7 +62,7 @@ class Produit {
             $pp->bindParam(1, $id, PDO::PARAM_INT);
             //rexecution de la requète
             $pp->execute();
-
+            
             //retourne un tableau d'objets produit
             $row = $pp->fetch(PDO::FETCH_OBJ);
             //création du tableau de réponse

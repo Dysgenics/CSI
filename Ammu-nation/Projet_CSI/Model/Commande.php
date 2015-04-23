@@ -44,8 +44,8 @@ class Commande {
     }
 	
 	public static function CreateCommande($id_cl, $id_mag) {
-	    $query = "INSERT INTO COMMANDE
-			VALUES (0,?,0,?);";
+	    $query = "INSERT INTO COMMANDE(ID_CLI, ID_MAGASIN, VALIDE,TOTAL)
+			VALUES (?,?,0,0.0);";
 		
         try {   
             $db = Base::getConnection();
@@ -56,7 +56,8 @@ class Commande {
 			$pp->bindParam(1, $id_cl, PDO::PARAM_INT);
             $pp->bindParam(2, $id_mag, PDO::PARAM_INT);
 	
-            $pp->execute();
+            $res = $pp->execute();
+            
         } catch (PDOException $e) {
             echo $query . "<br>";
             throw new Exception($e->getMessage());
