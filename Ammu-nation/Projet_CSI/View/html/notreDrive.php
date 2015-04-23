@@ -4,10 +4,7 @@
 session_start();
 if(isset($_GET['mag'])) {
 	$_SESSION['num_mag'] = $_GET['mag'];
-	$mag = Magasin::findById($_SESSION['num_mag']);
-	$_SESSION['mag'] = array();
-	var_dump($mag);
-	$_SESSION['mag'] = $mag;
+	
 }
 if(isset($_GET['categ'])) {
 	$_SESSION['num_categ'] = $_GET['categ'];
