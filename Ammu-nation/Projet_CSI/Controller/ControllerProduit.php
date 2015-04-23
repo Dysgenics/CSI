@@ -46,14 +46,24 @@ class ControllerProduit {
 		echo $output;
 	}
 	
+	
+	
+	
 	public static function DetailProduit($id_prod) {
 		$row = Produit::findById($id_prod);
 		$output = '<div class="test">';
 		
-			$output .= '<h2>'. $row['nom_produit'] . '</h2><img src="'.$row['img_url'] .'" width=400px height=400px;/><p> Description : <br><br>'. $row['libelle'] .'</p><p> Prix : '. $row["prix"] .'$</p>
-			<p>Quantité : <input type="number" value="1"></input>
-			<button id="addToPanierBtn" onclick="ajouterProduitAuPanier('. $row['id_produit']. ',' . $row['prix'] . ')">Ajouter au panier</button></p>';
+			$output .= '<h2>'. $row['nom_produit'] . '</h2><img src="'.$row['img_url'] .'" width=400px height=400px;/><p> Description : <br><br>'. $row['libelle'] .'</p><p> Prix : '. $row["prix"] .'$</p>';
 			
+			if(isset($_SESSION['id_cli']))
+			{
+			   $output .= '<p>Quantité : <input id="inputQuantite" type="number" value="1"></input>
+			    <button id="addToPanierBtn" onclick="ajouterProduitAuPanier('. $row['id_produit']. ',' . $row['prix'] . ')">Ajouter au panier</button></p>';
+			}
+			else
+			{
+			    $output .= '<h4>Vous devez etre connecté pour ajouter un produit au panier</h4>';
+			}
 			
 		
 		$output .= '</div>';
