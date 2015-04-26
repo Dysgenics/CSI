@@ -9,6 +9,9 @@ _ Ajouter un produit à une commande
 
 _ Récupérer une commande existante
 
+_ Création du bilan (voir programmation événementielle mysql)
+http://atranchant.developpez.com/mysql/evenement/
+
 Fonctions existentes non fonctionnelle:
 
 _ Create commande : L'insertion ne se fait pas dans la base
@@ -27,9 +30,6 @@ _ Afficher le contenu d'une commande (Terminé en partie)
 _ Partie remise
 
 _ Partie retrait / quai / horaire
-
-_ Création du bilan (voir programmation événementielle mysql)
-http://atranchant.developpez.com/mysql/evenement/
 
 Autres:
 _ Rapport + Diapos
