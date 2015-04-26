@@ -69,9 +69,9 @@ if (isset($_SESSION['email'])) {
 	echo "test2";
     // On affiche un message, son nom d'utilisateur et un bouton pour se déconnecter
     echo "<div class=\"connexion\">\n";
-    echo "Vous êtes connectés en tant que " . $_SESSION['email'];
+    echo "Vous êtes connectés en tant que " . $_SESSION['prenom_cli'] . " " . $_SESSION['nom_cli'];
     echo "<form action=\"connection.php\" method=\"GET\">\n";
-    echo "<input class=\"bouton\" type=\"submit\" value=\"Se déconnecter\"/>\n";
+    echo "<input id=\"connectBtn\" class=\"bouton\" type=\"submit\" value=\"Se déconnecter\"/>\n";
     echo "</form>\n";
     echo "</div>\n";
 	 echo $_SESSION['id_cli'];
@@ -84,8 +84,17 @@ if (isset($_SESSION['email'])) {
     echo "<form action=\"connection.php\" method=\"POST\">\n";
     echo "<input class=\"champ\" type=\"text\" name=\"email\" value=\"email\" size=\"20\"/>\n";
     echo "<input class=\"champ\" type=\"password\" name=\"mdp\" value=\"mdp\"/>\n";
-    echo "<input class=\"bouton\" type=\"submit\" value=\"Se connecter\"/>\n";
+    echo "<input id=\"connectBtn\" class=\"bouton\" type=\"submit\" value=\"Se connecter\"/>\n";
     echo "</form>\n";
+    
+    if(isset($_GET['auth']))
+    {
+        if($_GET['auth'] == 0)
+        {
+            echo "<p id=\"authError\">Email ou mot de passe incorrect</p>";
+        }
+    }
+    
     echo "</div>\n";
     echo "</div>\n";
     

@@ -13,6 +13,10 @@
 	
 }
 
+#authError {
+    color: #ED9887;
+}
+
 .Entete h1 {
     margin: 0px;
 }

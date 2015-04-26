@@ -100,9 +100,9 @@ class Client {
             $client->nom_cli = $row['NOM_CLI'];
 			$client->prenom_cli = $row['PRENOM_CLI'];
 			$client->adresse_cli = $row['ADRESSE_CLI'];
-            $client->mdp = $row['MDP'];
-            $client->email = $row['EMAIL'];
-			$client->telephone = $row['TELEPHONE'];
+            $client->mdp_cli = $row['MDP'];
+            $client->email_cli = $row['EMAIL'];
+			$client->tel_cli = $row['TELEPHONE'];
 
             // Retour du tableau de tracks
             return $client;
