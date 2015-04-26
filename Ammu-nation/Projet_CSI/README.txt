@@ -13,8 +13,6 @@ _ Récupérer une commande existante
 - bouton d'ajout au panier avec quantité
 _ Afficher le nom du magasin et le nom de la catégorie
 
-Fonctions à réaliser:
-
 _ bouton visu panier
 
 
@@ -22,6 +20,10 @@ _ Afficher le contenu d'une commande (Terminé en partie)
 	-> Créer le lien qui redirige vers l'affichage du panier
 	-> Afficher le nom du produit
 	-> ControllerContient::AfficherPanier($id_com)
+
+Fonctions à réaliser:
+
+
 
 _ Partie remise
 
