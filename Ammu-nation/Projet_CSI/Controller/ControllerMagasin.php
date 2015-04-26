@@ -1,6 +1,6 @@
 <?php
 
-include_once '../../Model/Magasin.php';
+
 
 /*
 * Controleur d'un magasin

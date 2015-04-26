@@ -1,5 +1,23 @@
 <?php
 session_start();
+
+
+include_once("../../base.php");
+
+include_once("../../Controller/AJAXController.php");
+include_once("../../Controller/ControllerCategorie.php");
+include_once("../../Controller/ControllerCommande.php");
+include_once("../../Controller/ControllerContient.php");
+include_once("../../Controller/ControllerProduit.php");
+include_once("../../Controller/ControllerMagasin.php");
+
+include_once("../../Model/Categorie.php");
+include_once("../../Model/Client.php");
+include_once("../../Model/Commande.php");
+include_once("../../Model/Contient.php");
+include_once("../../Model/Magasin.php");
+include_once("../../Model/Produit.php");
+
 ?>
 
 <!DOCTYPE html>
@@ -11,8 +29,8 @@ session_start();
 	
 	<script type="text/javascript" src="../js/xyz.js"></script>
 
-	<?php include("../../base.php"); ?>
-	<?php include("../../Controller/ControllerMagasin.php"); ?>
+	<?//php include("../../base.php"); ?>
+	<?//php include("../../Controller/ControllerMagasin.php"); ?>
 
 	<title> Ammu-nation.fr </title>
 </head>

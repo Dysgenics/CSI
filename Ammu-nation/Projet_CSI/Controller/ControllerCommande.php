@@ -1,7 +1,5 @@
 <?php
 
-include_once '../../Model/Commande.php';
-include_once 'ControllerContient.php';
 
 class ControllerCommande {
 	

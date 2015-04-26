@@ -13,6 +13,10 @@
 	
 }
 
+#authError {
+    color: #ED9887;
+}
+
 .Entete h1 {
     margin: 0px;
 }
@@ -95,9 +99,36 @@ body {
 }
 
 #choixMagCenter a {
+   
+    text-align: center;
     padding-top: 8px;
     padding-bottom: 8px;
-    display: block;
+    /*display: block;*/
+    text-decoration: none;
+    color: white;
+}
+
+#showPanierBtn {
+     padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+   /* display: block;*/
+    text-decoration: none;
+    color: white;
+}
+
+#showPanierBtn:visited {
+    color: white;
+    text-decoration: none;
+}
+
+#showPanierBtn:hover {
+    color: white;
+    text-align: center;
+    transition: background 0.2s;
+    background-color: #BF3115;
+    list-style-type: none;
     text-decoration: none;
 }
 
@@ -155,6 +186,7 @@ body {
 .Colonne_categ a {
     display: block;
     text-decoration: none;
+    color: white;
 }
 
 .Colonne_categ a:hover {

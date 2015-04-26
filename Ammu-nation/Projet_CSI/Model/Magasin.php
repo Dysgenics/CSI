@@ -1,8 +1,6 @@
 <?php
 
 
-include_once '../../base.php';
-
 class Magasin {
 
     private $id_magasin;
