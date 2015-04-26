@@ -1,5 +1,4 @@
 <?php
-include_once '../../base.php';
 
 /**
  * Représente un client

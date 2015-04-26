@@ -1,6 +1,5 @@
 <?php
 
-include_once '../../Model/Produit.php';
 
 /*
 * Controleur d'un produit

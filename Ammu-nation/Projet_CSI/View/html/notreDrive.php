@@ -9,6 +9,22 @@ if(isset($_GET['mag'])) {
 if(isset($_GET['categ'])) {
 	$_SESSION['num_categ'] = $_GET['categ'];
 }
+
+include_once("../../base.php");
+
+include_once("../../Controller/AJAXController.php");
+include_once("../../Controller/ControllerCategorie.php");
+include_once("../../Controller/ControllerCommande.php");
+include_once("../../Controller/ControllerContient.php");
+include_once("../../Controller/ControllerProduit.php");
+include_once("../../Controller/ControllerMagasin.php");
+
+include_once("../../Model/Categorie.php");
+include_once("../../Model/Client.php");
+include_once("../../Model/Commande.php");
+include_once("../../Model/Contient.php");
+include_once("../../Model/Magasin.php");
+include_once("../../Model/Produit.php");
 ?>
 
 <!DOCTYPE html>
@@ -19,12 +35,12 @@ if(isset($_GET['categ'])) {
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Allerta+Stencil" />
 	<script type="text/javascript" src="../js/script.js"></script>
 	
-	<?php include("../../base.php"); ?>
-	<?php include("../../Controller/ControllerCategorie.php"); ?>
-	<?php include("../../Controller/ControllerProduit.php"); ?>
-	<?php include("../../Controller/ControllerContient.php"); ?>
-	<?php include("../../Model/Client.php"); ?>
-	<?php include("../../Model/Magasin.php"); ?>
+	<?//php include("../../base.php"); ?>
+	<?//php include("../../Controller/ControllerCategorie.php"); ?>
+	<?//php include("../../Controller/ControllerProduit.php"); ?>
+	<?//php include("../../Controller/ControllerContient.php"); ?>
+	<?//php include("../../Model/Client.php"); ?>
+	<?//php include("../../Model/Magasin.php"); ?>
 	
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 

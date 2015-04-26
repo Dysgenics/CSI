@@ -99,6 +99,7 @@ body {
     padding-bottom: 8px;
     display: block;
     text-decoration: none;
+    color: white;
 }
 
 #choixMagCenter a:visited {
@@ -155,6 +156,7 @@ body {
 .Colonne_categ a {
     display: block;
     text-decoration: none;
+    color: white;
 }
 
 .Colonne_categ a:hover {

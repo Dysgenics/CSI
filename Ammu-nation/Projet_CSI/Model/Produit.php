@@ -1,8 +1,6 @@
 <?php
 
 
-include_once '../../base.php';
-
 class Produit {
 
     private $id_produit;
