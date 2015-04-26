@@ -314,8 +314,9 @@ VALUES (0, 'Chez Marco', '12', 'Rue du jardiland', 'Nancy', 54000),
 /*==============================================================*/
 
 INSERT INTO CATEGORIE
-VALUES (0, 'Arme blanche'),
-(0, 'Arme de poing');
+VALUES (0,'Arme blanche'),
+(0,'Arme de poing'),
+(0,'Fusil d\'assaut');
 
 /*==============================================================*/
 /* Ajout des produits		                                    */
@@ -325,6 +326,7 @@ INSERT INTO PRODUIT
 VALUES (0, 1, 'Couteau', 20, 'Un beau couteau', '../../View/img/img_prod/couteau.jpeg'), /* !! Chemin ne fonctionne pas */
 (0, 1,'Club de golf', 89, 'Pour jouer au golf', '../../View/img/img_prod/club_golf.jpg'),
 (0, 2, 'Revolver Colt', 189, 'Pistolet de Cow Boy', '../../View/img/img_prod/revolver_colt.png'),
+(0, 3, 'FN FNC', 1600, 'Le fusil d\'Al Pacino dans Heat, la classe !', '../../View/img/img_prod/fn_fnc.png'),
 (0, 2, 'Pistolet Luger', 159, 'Meilleur vente', '../../View/img/img_prod/luger_p08.png');
 
 INSERT INTO PRODUIT
@@ -340,6 +342,7 @@ VALUES (1, 1),
 (2, 1),
 (3, 2),
 (4, 2),
+(5, 2)
 (5, 2);
 
 /*

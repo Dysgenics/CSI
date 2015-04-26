@@ -66,7 +66,7 @@ $mag = Magasin::findById($_SESSION['num_mag']);
 <?php
 // Si l'utilisateur est connecté
 if (isset($_SESSION['email'])) {
-	echo "test2";
+	//echo "test2";
     // On affiche un message, son nom d'utilisateur et un bouton pour se déconnecter
     echo "<div class=\"connexion\">\n";
     echo "Vous êtes connectés en tant que " . $_SESSION['prenom_cli'] . " " . $_SESSION['nom_cli'];
@@ -74,10 +74,10 @@ if (isset($_SESSION['email'])) {
     echo "<input id=\"connectBtn\" class=\"bouton\" type=\"submit\" value=\"Se déconnecter\"/>\n";
     echo "</form>\n";
     echo "</div>\n";
-	 echo $_SESSION['id_cli'];
+	 //echo $_SESSION['id_cli'];
     
 } else {
-	echo "test";
+	//echo "test";
     // Sinon, on affiche des champs et un bouton pour qu'il puisse se connecter
     echo "<div class=\"connexion\">\n";
     echo "<div class=\"input\">\n";

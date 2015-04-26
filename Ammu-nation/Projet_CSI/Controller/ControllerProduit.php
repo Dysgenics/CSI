@@ -52,7 +52,7 @@ class ControllerProduit {
 		$row = Produit::findById($id_prod);
 		$output = '<div class="test">';
 		
-			$output .= '<h2>'. $row['nom_produit'] . '</h2><img src="'.$row['img_url'] .'" width=400px height=400px;/><p> Description : <br><br>'. $row['libelle'] .'</p><p> Prix : '. $row["prix"] .'$</p>';
+			$output .= '<h2>'. $row['nom_produit'] . '</h2><img src="'.$row['img_url'] .'" width=400px ;/><p> Description : <br><br>'. $row['libelle'] .'</p><p> Prix : '. $row["prix"] .'$</p>';
 			
 			if(isset($_SESSION['id_cli']))
 			{
