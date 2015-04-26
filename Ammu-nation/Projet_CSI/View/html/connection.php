@@ -29,7 +29,7 @@ if(isset($_SESSION['email'])) {
 if(isset($_POST['email'], $_POST['mdp'])) {
 
     $em = $_POST['email'];
-    $pw = $_POST['mdp'];
+    $pw = hash("sha512", $_POST['mdp']);
     
     // On récupère l'utilisateur
     $client = Client::findByEmail($em);

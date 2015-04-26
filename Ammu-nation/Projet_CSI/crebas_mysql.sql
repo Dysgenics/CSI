@@ -295,10 +295,10 @@ alter table RETRAIT add constraint FK_RETRAIT_DE_COMMANDE foreign key (ID_COMMAN
 /*==============================================================*/
 
 INSERT INTO CLIENT 
-    VALUES (0,'Papelier', 'Romain', '16 rue du Sapin', 'ThePape', 'romain.papelier@gmail.com', 0657890876),
-    (0,'Chaboissier', 'Maxime', '12 rue MC circulaire', 'Booba88', 'maxime.chaboissier@yahoo.fr', 0698906754),
-    (0,'Besson', 'Leonard', '256 boulevard du jambon', 'monmdp', 'leonard@hotmail.fr', NULL),
-   (0,'Burteaux', 'Pierre', '46 avenue de la meuse', 'meuse55','pierre.burteaux@gmail.com', 0657899765);
+    VALUES (0,'Papelier', 'Romain', '16 rue du Sapin', '598f195ab155f4279de2ee4e4c3edcd8a4ea69383ab2454591301b7672aa4d369adaf45d0563c3ec4df82f006653440415dd5b3d72989299628bc25c9099a3c0', 'romain.papelier@gmail.com', 0657890876),
+    (0,'Chaboissier', 'Maxime', '12 rue MC circulaire', '9c357f1841ff6c7a65011d75efa517bfd212f183d08cf898b73b044578dd71f6aa8b0a07eb01ca59b36516f82d1346d01d198c8d1642d8996acdd0d72cff7616', 'maxime.chaboissier@yahoo.fr', 0698906754),
+    (0,'Besson', 'Leonard', '256 boulevard du jambon', '4f59fc06506f22f06ce4d2d9a163fcd0009bf5d0e830cac441d88bbcaef4e821cb17bd0c4f6ac780cc1f68d929cb6765fbe2745ec5d1aca29d5d74415942c2c6', 'leonard@hotmail.fr', NULL),
+   (0,'Burteaux', 'Pierre', '46 avenue de la meuse', 'ecf37bff40e6d1de59c03382590c24ac32592561b2a77474c9cb20045a229a5fb5604ceb60808194a6d188f1b36e38ccc804ad616a4c4532af2fe5da3cf45439','pierre.burteaux@gmail.com', 0657899765);
 
 /*==============================================================*/
 /* Ajout des magasins	                                        */
