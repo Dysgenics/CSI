@@ -120,6 +120,45 @@ class ControllerContient {
         return $res;
     }
     
+    public static function AfficherPanierReduit($id_com) {
+	    	
+		//on recherche toutes les catégories
+		include_once("../../base.php");
+		$id_com = intval($id_com);
+        $r = Contient::findAll($id_com);
+        //var_dump($r);
+		
+		$tot = 0;
+		$nb_prod = 0;
+        foreach ($r as $row) {
+		$query = "SELECT * FROM PRODUIT where ID_PRODUIT=?;";
+		
+			try{
+			
+				$db = Base::getConnection();
+
+				$pp = $db->prepare($query);
+				
+				$id_prod = intval($row['id_produit']);
+				$pp->bindParam(1, $id_prod, PDO::PARAM_INT);
+				$pp->execute();
+				$res = $pp->fetch(PDO::FETCH_OBJ);
+				$ligne_tot = (intval($row["quantite"]) * doubleval($row['prix_unitaire']) );
+			    $nb_prod = $nb_prod + intval($row['quantite']);
+				$tot = $tot + $ligne_tot;
+				
+			}   catch (PDOException $e) {
+				$res = false;
+				echo $query . "<br>";
+				throw new Exception($e->getMessage());
+			}
+		}
+		$output = '<p><a id="showPanierBtn" href="notreDrive.php?panier">Panier : ' . $nb_prod . ' produits. TOTAL : ' . $tot . '</a></p>';
+		
+		echo $output;
+		//var_dump($output);
+	}
+    
 	
 	/* 
 	 * 
@@ -128,6 +167,7 @@ class ControllerContient {
 	    	
 		//on recherche toutes les catégories
 		include_once("../../base.php");
+		$id_com = intval($id_com);
         $r = Contient::findAll($id_com);
         //var_dump($r);
 		$output = '<table><tr><td> PRODUIT </td><td> QUANTITE </td><td> PRIX UNITAIRE </td><td> PRIX TOTAL </td></tr>';

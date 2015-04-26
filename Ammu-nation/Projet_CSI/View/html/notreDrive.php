@@ -73,6 +73,7 @@ if (isset($_SESSION['email'])) {
     echo "<form action=\"connection.php\" method=\"GET\">\n";
     echo "<input id=\"connectBtn\" class=\"bouton\" type=\"submit\" value=\"Se déconnecter\"/>\n";
     echo "</form>\n";
+    ControllerContient::AfficherPanierReduit($_SESSION['id_com']);
     echo "</div>\n";
 	
     
