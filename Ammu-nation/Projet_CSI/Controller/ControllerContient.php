@@ -127,22 +127,27 @@ class ControllerContient {
 	public static function AfficherPanier($id_com) {
 	    	
 		//on recherche toutes les catégories
+		include_once("../../base.php");
         $r = Contient::findAll($id_com);
-		$output = '<ul>';
+        //var_dump($r);
+		$output = '<table><tr><td> PRODUIT </td><td> QUANTITE </td><td> PRIX UNITAIRE </td><td> PRIX TOTAL </td></tr>';
+		$tot = 0;
         foreach ($r as $row) {
-		$query = "SELECT NOM_PRODUIT FROM PRODUIT where ID_PRODUIT=?;";
-		include_once("../base.php");
+		$query = "SELECT * FROM PRODUIT where ID_PRODUIT=?;";
+		
 			try{
 			
 				$db = Base::getConnection();
 
 				$pp = $db->prepare($query);
 				
-				$id_prod = intval($id_prod);
-				$pp->bindParam(1, $id_prod, PDO::PARAM_INT);			
-				
-				$output .= '<li>' . $row['id_produit'] . '<p> '.$res->NOM_PRODUIT .'</p>' .'</li>';
-				
+				$id_prod = intval($row['id_produit']);
+				$pp->bindParam(1, $id_prod, PDO::PARAM_INT);
+				$pp->execute();
+				$res = $pp->fetch(PDO::FETCH_OBJ);
+				$ligne_tot = (intval($row["quantite"]) * doubleval($row['prix_unitaire']) );
+				$output .= '<tr><td>'.$res->NOM_PRODUIT .'</td><td> ' . $row["quantite"] . ' </td><td> ' . $row['prix_unitaire'] . ' </td><td> ' . $ligne_tot  . ' </td><td> (bouton pour retirer un ou plusieurs produits) </td></tr>';
+				$tot = $tot + $ligne_tot;
 				
 			}   catch (PDOException $e) {
 				$res = false;
@@ -150,10 +155,10 @@ class ControllerContient {
 				throw new Exception($e->getMessage());
 			}
 		}
-		$output .= '</ul>';
+		$output .= '<tr><td>TOTAL</td><td></td><td></td><td>' . $tot .'</td></tr></table>';
 		
 		echo $output;
-		var_dump($output);
+		//var_dump($output);
 	}
 }
 

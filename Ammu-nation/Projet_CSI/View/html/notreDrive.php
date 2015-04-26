@@ -69,12 +69,12 @@ if (isset($_SESSION['email'])) {
 	//echo "test2";
     // On affiche un message, son nom d'utilisateur et un bouton pour se déconnecter
     echo "<div class=\"connexion\">\n";
-    echo "Vous êtes connectés en tant que " . $_SESSION['prenom_cli'] . " " . $_SESSION['nom_cli'];
+    echo  $_SESSION['prenom_cli'] . " " . $_SESSION['nom_cli'];
     echo "<form action=\"connection.php\" method=\"GET\">\n";
     echo "<input id=\"connectBtn\" class=\"bouton\" type=\"submit\" value=\"Se déconnecter\"/>\n";
     echo "</form>\n";
     echo "</div>\n";
-	 //echo $_SESSION['id_cli'];
+	
     
 } else {
 	//echo "test";
@@ -114,7 +114,11 @@ if (isset($_SESSION['email'])) {
 <div class="Zone_produits">
 <?php
     var_dump($_SESSION);
-	if(isset($_GET['prod'])) {
+    if(isset($_GET['panier']))
+    {
+        ControllerContient::AfficherPanier($_SESSION['id_com']);
+    }
+	else if(isset($_GET['prod'])) {
 		ControllerProduit::DetailProduit($_GET['prod']);	
 	} else {
 		if(isset($_SESSION['num_categ']) && $_SESSION['num_categ'] != -1) {
