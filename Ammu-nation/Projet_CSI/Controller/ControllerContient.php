@@ -130,12 +130,30 @@ class ControllerContient {
         $r = Contient::findAll($id_com);
 		$output = '<ul>';
         foreach ($r as $row) {
+		$query = "SELECT NOM_PRODUIT FROM PRODUIT where ID_PRODUIT=?;";
+		include_once("../base.php");
+			try{
 			
-			$output .= '<li>' . $row['id_produit'] . '<p> Afficher le nom </p>' .'</li>';
+				$db = Base::getConnection();
+
+				$pp = $db->prepare($query);
+				
+				$id_prod = intval($id_prod);
+				$pp->bindParam(1, $id_prod, PDO::PARAM_INT);			
+				
+				$output .= '<li>' . $row['id_produit'] . '<p> '.$res->NOM_PRODUIT .'</p>' .'</li>';
+				
+				
+			}   catch (PDOException $e) {
+				$res = false;
+				echo $query . "<br>";
+				throw new Exception($e->getMessage());
+			}
 		}
 		$output .= '</ul>';
 		
 		echo $output;
+		var_dump($output);
 	}
 }
 
