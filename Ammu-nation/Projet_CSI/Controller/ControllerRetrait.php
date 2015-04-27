@@ -1,17 +1,8 @@
 <?php
 
-
-/*
-* Controleur de contient
-* Appelle les fonctions liées au contenu d'une commande
-*/
  
-class ControllerContient {
-	
-	/* Ajoute une ligne dans la table contient
-	 * A utiliser au clic sur le bouton "Ajouter au panier"
-	 * @param $id_com : Id commande stocké dans une variable de session
-	 */
+class ControllerRetrait {
+
 	
 	public static function Ajouterproduit($id_prod, $id_com, $q, $red, $pu) {
 	    include_once("../base.php");
@@ -80,35 +71,38 @@ class ControllerContient {
         return $res;
     }
     
-    public static function rechercherProduit($id_prod, $id_com) {
-	    $query = "SELECT * FROM CONTIENT where ID_PRODUIT=? and ID_COMMANDE=?;";
-		include_once("../base.php");
+    public static function afficherHorairesLibres($id_magasin, $date) {
+	    $query = "  select distinct HORAIRE.HEURE
+                    from HORAIRE
+                    inner join QUAI 
+                    where QUAI.ID_MAGASIN = ?
+                    and CONCAT(QUAI.ID_QUAI, HORAIRE.HEURE) not in (
+                    
+                    	select CONCAT(RETRAIT.ID_QUAI, RETRAIT.HEURE) as CQH /* selectionne les quai-horaires reserves pour le jour */
+                    	from RETRAIT
+                    	inner join QUAI on QUAI.ID_QUAI = RETRAIT.ID_QUAI
+                    	where RETRAIT.DATE = ? and QUAI.ID_MAGASIN = ?
+                    );";
+                    
+		//include_once("../base.php");
         try {   
             $db = Base::getConnection();
 
             $pp = $db->prepare($query);
             
-			$id_prod = intval($id_prod);
-			$id_com = intval($id_com);
+			$id_magasin = intval($id_magasin);
+			
 			
 			//définition des paramètres
-			$pp->bindParam(1, $id_prod, PDO::PARAM_INT);
-            $pp->bindParam(2, $id_com, PDO::PARAM_INT);
+			$pp->bindParam(1, $id_magasin, PDO::PARAM_INT);
+            $pp->bindParam(2, $date, PDO::PARAM_STR);
+            $pp->bindParam(3, $id_magasin, PDO::PARAM_INT);
 		
             $res = $pp->execute();
-            $res = $pp->fetch(PDO::FETCH_OBJ);
             
-            if($res != false)
-            {
-                $contient = array();
-                $contient['id_produit'] = intval($res->ID_PRODUIT);
-                $contient['id_commande'] = intval($res->ID_COMMANDE);
-                $contient['quantite'] = intval($res->QUANTITE);
-                $contient['reduction'] = doubleval($res->REDUCTION);
-                $contient['prix_unitaire'] = doubleval($res->PRIX_UNITAIRE);
-                
-                return $contient;
-            }
+            $res = $pp->fetchAll(PDO::FETCH_OBJ);
+            
+            
             
             
         } catch (PDOException $e) {
@@ -124,14 +118,8 @@ class ControllerContient {
 	    	
 		//on recherche toutes les catégories
 		include_once("../../base.php");
-		$id_com = intval($id_com);
-        $r = Contient::findAll($id_com);
-        //var_dump($r);
-		
-		$tot = 0;
-		$nb_prod = 0;
-        foreach ($r as $row) {
-		$query = "SELECT * FROM PRODUIT where ID_PRODUIT=?;";
+	
+		$query = "select HEURE, ID_QUAI from RETRAIT where DATE=CURRENT_DATE();";
 		
 			try{
 			
@@ -152,7 +140,7 @@ class ControllerContient {
 				echo $query . "<br>";
 				throw new Exception($e->getMessage());
 			}
-		}
+	
 		$output = '<p><a class="aBtn" href="notreDrive.php?panier">Panier : ' . $nb_prod . ' produits. TOTAL : ' . $tot . '</a></p>';
 		
 		echo $output;

@@ -18,6 +18,7 @@ include_once("../../Controller/ControllerCommande.php");
 include_once("../../Controller/ControllerContient.php");
 include_once("../../Controller/ControllerProduit.php");
 include_once("../../Controller/ControllerMagasin.php");
+include_once("../../Controller/ControllerRetrait.php");
 
 include_once("../../Model/Categorie.php");
 include_once("../../Model/Client.php");
@@ -120,7 +121,79 @@ if (isset($_SESSION['email'])) {
         ControllerContient::AfficherPanier($_SESSION['id_com']);
     }
 	else if(isset($_GET['prod'])) {
-		ControllerProduit::DetailProduit($_GET['prod']);	
+		ControllerProduit::DetailProduit($_GET['prod']);
+	}
+	else if(isset($_GET['choixHoraire'])) {
+	    if(!isset($_GET['date']))
+	    {
+	        $date = new DateTime('NOW');
+	        date_add($date, date_interval_create_from_date_string('2 hours'));
+	        
+	    }
+	    else
+	    {
+	       
+	       $date = new DateTime($_GET['date']);
+	        
+	    }
+		$horaires = ControllerRetrait::afficherHorairesLibres($_SESSION['mag']['id_magasin'], $date->format('d/m/Y'));	
+		
+		echo ' <table><tr><td> <form name="formChoixHoraire" action="../../Controller/AJAXController.php" method="POST">
+                <div align="center"><br>
+                <input type="text" name="action" value="reserverHoraire" hidden>
+                <input type="text" name="jour" value="'. $date->format('d/m/Y') . '" hidden>
+                <input type="text" name="id_mag" value="'. $_SESSION['mag']['id_magasin'] . '" hidden>
+                <input type="text" name="id_cli" value="'. $_SESSION['id_cli'] . '" hidden>
+                <input type="text" name="id_com" value="'. $_SESSION['id_com'] . '" hidden>
+                <h3>Choississez votre horaire de retrait pour le '. $date->format('d/m/Y') .'</h3>
+               ';
+               
+		$aucunHoraire = true;
+		foreach($horaires as $h)
+		{
+		    //echo $date->diff(new DateTime('NOW'))->days;
+		    $dateh = new DateTime($date->format('Y-m-d') . $h->HEURE );
+		    //$dateh->add(new DateInterval('PT2H1M')); //NE MARCHE PAS
+		    
+		    
+		    //$b = ($dateh < $date);
+		    //var_dump($b);
+		    //echo $date->format('d-m-Y H:i:s');
+		    //echo $dateh->format('d-m-Y H:i:s');
+		    if(($date > new DateTime('NOW'))  && ($date < $dateh))
+		    {
+		        $aucunHoraire = false;
+		        echo '<input type="radio" name="heure" value="'. $h->HEURE .'"> '. $h->HEURE . '<br>';
+		    }
+		}
+		
+		if($aucunHoraire)
+		    echo '<h4>Horaires dépassés pour ce jour</h4>';
+		else
+		    echo '  <input class="aBtn" type="submit" value="Valider">';
+		    
+		  echo      '</div>
+                </form> </td>';
+         echo ' <td> <form name="formChoixJour" action="../../Controller/AJAXController.php" method="POST">
+                <div align="center"><br>
+                <input type="text" name="action" value="changerJour" hidden>
+                <h3>Choississez votre jour de retrait.</h3>';
+        
+        $nday = $date;
+        
+        for($i = 0; $i < 7; $i++)
+        {
+            if($i==0)
+                echo '<input type="radio" name="jour" value="'. $nday->format('d/m/Y') .'" checked> '. $nday->format('d/m/Y') . '<br>';
+            else
+                 echo '<input type="radio" name="jour" value="'. $nday->format('d/m/Y') .'"> '. $nday->format('d/m/Y') . '<br>';
+            $nday = $nday->modify('+1 day');
+        }
+                
+        echo '<input class="aBtn" type="submit" value="Changer de jour">
+		        </div>
+                </form></td></tr><table>';
+	
 	} else {
 		if(isset($_SESSION['num_categ']) && $_SESSION['num_categ'] != -1) {
 			ControllerProduit::AfficherProduitCateg($_SESSION['num_mag'], $_SESSION['num_categ']);
@@ -128,7 +201,7 @@ if (isset($_SESSION['email'])) {
 			ControllerProduit::AfficherProduit($_SESSION['num_mag']);
 		}
 	}
-	// ControllerContient::AfficherPanier($_SESSION['id_com']); Il faut afficher les noms des produits
+	
 ?>
 </div>
 

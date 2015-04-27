@@ -99,16 +99,16 @@ body {
 }
 
 #choixMagCenter a {
-   
+   /*margin: 10px;*/
     text-align: center;
     padding-top: 8px;
     padding-bottom: 8px;
-    /*display: block;*/
+    display: block;
     text-decoration: none;
     color: white;
 }
 
-#showPanierBtn {
+.aBtn {
      padding-left: 10px;
     padding-right: 10px;
     padding-top: 8px;
@@ -116,20 +116,22 @@ body {
    /* display: block;*/
     text-decoration: none;
     color: white;
+    background-color: #BF3115;
 }
 
-#showPanierBtn:visited {
+.aBtn:visited {
     color: white;
     text-decoration: none;
 }
 
-#showPanierBtn:hover {
+.aBtn:hover {
     color: white;
     text-align: center;
     transition: background 0.2s;
     background-color: #BF3115;
     list-style-type: none;
     text-decoration: none;
+    background-color: #4E49B3;
 }
 
 #choixMagCenter a:visited {
@@ -199,7 +201,7 @@ body {
 
 .Zone_produits {
 	margin-left: 220px;
-   
+   padding-bottom: 50px;
 	background-color: rgba(0,0,0,0.8);
 	/*display: inline-block;*/
 }
