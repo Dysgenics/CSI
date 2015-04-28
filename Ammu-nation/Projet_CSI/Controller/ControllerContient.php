@@ -172,6 +172,7 @@ class ControllerContient {
         //var_dump($r);
 		$output = '<table><tr><td> PRODUIT </td><td> QUANTITE </td><td> PRIX UNITAIRE </td><td> PRIX TOTAL </td></tr>';
 		$tot = 0;
+		$count = 0;
         foreach ($r as $row) {
 		$query = "SELECT * FROM PRODUIT where ID_PRODUIT=?;";
 		
@@ -186,7 +187,7 @@ class ControllerContient {
 				$pp->execute();
 				$res = $pp->fetch(PDO::FETCH_OBJ);
 				$ligne_tot = (intval($row["quantite"]) * doubleval($row['prix_unitaire']) );
-				$output .= '<tr><td>'.$res->NOM_PRODUIT .'</td><td> ' . $row["quantite"] . ' </td><td> ' . $row['prix_unitaire'] . ' </td><td> ' . $ligne_tot  . ' </td><td> (bouton pour retirer un ou plusieurs produits) </td></tr>';
+				$output .= '<tr><td>'.$res->NOM_PRODUIT .'</td><td> ' . $row["quantite"] . ' </td><td> ' . $row['prix_unitaire'] . ' </td><td> ' . $ligne_tot  . ' </td><td>  </td></tr>';
 				$tot = $tot + $ligne_tot;
 				
 			}   catch (PDOException $e) {
@@ -194,9 +195,12 @@ class ControllerContient {
 				echo $query . "<br>";
 				throw new Exception($e->getMessage());
 			}
+			$count++;
 		}
 		$output .= '<tr><td>TOTAL</td><td></td><td></td><td>' . $tot .'</td></tr></table>';
-		$output .= '<p><a class="aBtn" href="?choixHoraire">Valider la commande</a></p>';
+		
+		if($count > 0)
+		    $output .= '<p><a class="aBtn" href="?choixHoraire">Valider la commande</a></p>';
 		
 		echo $output;
 		//var_dump($output);

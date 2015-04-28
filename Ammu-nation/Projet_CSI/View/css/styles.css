@@ -17,6 +17,14 @@
     color: #ED9887;
 }
 
+.erreur {
+    color: #ED9887;
+}
+
+.success {
+    color: #7BDB6E;
+}
+
 .Entete h1 {
     margin: 0px;
 }

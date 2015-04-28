@@ -92,10 +92,14 @@ class ControllerRetrait {
             
 			$id_magasin = intval($id_magasin);
 			
+			$year = substr($date, -4);
+    			$mon = substr($date, 3,2);
+    			$day = substr($date, 0,2);
+    			$jourSQL = $year . '-' . $mon . '-' . $day;
 			
 			//définition des paramètres
 			$pp->bindParam(1, $id_magasin, PDO::PARAM_INT);
-            $pp->bindParam(2, $date, PDO::PARAM_STR);
+            $pp->bindParam(2, $jourSQL, PDO::PARAM_STR);
             $pp->bindParam(3, $id_magasin, PDO::PARAM_INT);
 		
             $res = $pp->execute();
@@ -192,51 +196,115 @@ class ControllerRetrait {
 	
 	public static function reserverHoraire($jour, $heure, $id_cli, $id_mag, $id_com) {
 	
-	include_once("../../base.php");
+	include_once("../base.php");
 	
-	 $contientdeja = ControllerRetrait::rechercherQuai();
-	
-			if($contientDeja == false)
-		{
-		    $query = "INSERT INTO RETRAIT
-			VALUES (?,?,?);";
-			
-			try {   
-            $db = Base::getConnection();
-
-            $pp = $db->prepare($query);
-            
-			$id_mag = intval($id_mag);
-			$id_com = intval($id_com);
-			$q = intval($q);
-			
-			//définition des paramètres
-			$pp->bindParam(1, $id_prod, PDO::PARAM_INT);
-            $pp->bindParam(2, $id_mag, PDO::PARAM_INT);
-			$pp->bindParam(3, $q, PDO::PARAM_INT);	
-            $res = $pp->execute();
-            
-            } catch (PDOException $e) {
-                $res = false;
-                echo $query . "<br>";
-                throw new Exception($e->getMessage());
-            }
-		}
-	
-	
-}
-
-    public static function rechercherQuai($date) {
-	    $query = "SELECT ID_QUAI, NUMQUAI FROM QUAI
-					INNER JOIN HORAIRE 
-					WHERE DATE =?
-                    and CONCAT(QUAI.ID_QUAI, HORAIRE.HEURE) not in (
+	 $quaiLibre = ControllerRetrait::rechercherQuaiLibre($heure, $jour, $id_mag);
+	    //$quaiLibre = false;
+	        //si il y a encore un quai de libre pour l'horaire
+			if($quaiLibre != false)
+    		{
+    		    $query = "INSERT INTO RETRAIT(`ID_QUAI`,`ID_COMMANDE`,`HEURE`,`DATE`)
+    			VALUES (?,?,?,?);";
+    			
+    			try {   
+                $db = Base::getConnection();
+    
+                $pp = $db->prepare($query);
+                
+    			$id_mag = intval($id_mag);
+    			$id_com = intval($id_com);
+    			$id_quai = intval($quaiLibre->ID_QUAI);
+    			
+    			$year = substr($jour, -4);
+    			$mon = substr($jour, 3,2);
+    			$day = substr($jour, 0,2);
+    			$jourSQL = $year . '-' . $mon . '-' . $day;
+    			
+    			//définition des paramètres
+    			$pp->bindParam(1, $id_quai, PDO::PARAM_INT);
+                $pp->bindParam(2, $id_com, PDO::PARAM_INT);
+    			$pp->bindParam(3, $heure, PDO::PARAM_STR);	
+    			$pp->bindParam(4, $jourSQL, PDO::PARAM_STR);	
+                $res = $pp->execute();
+                $id_retrait = $db->lastInsertId(); 
+                
+                
+                
+                } catch (PDOException $e) {
+                    $res = false;
+                    echo $query . "<br>";
+                    throw new Exception($e->getMessage());
+                }
+                
+                //si l'insertion s'est bien faite, on créé l'evenement de verouillage temporel
+                
+                if($res == true)
+                {
+                    $query = "  SET GLOBAL event_scheduler = ON;
+                                CREATE EVENT verrou_retrait_?
+                                ON SCHEDULE AT ?
+                                DO
+                                	DELETE FROM RETRAIT WHERE RETRAIT.ID_RETRAIT = ? AND RETRAIT.ID_COMMANDE NOT IN (
+                                	
+                                	    SELECT ID_COMMANDE
+                                	    FROM COMMANDE
+                                	    WHERE COMMANDE.ID_CLI = ? AND COMMANDE.VALIDE = 0
+                                	)
+                                ;";
+        			
+        			try {   
+                    $db = Base::getConnection();
+        
+                    $pp = $db->prepare($query);
                     
-                    	select CONCAT(RETRAIT.ID_QUAI, RETRAIT.HEURE) as CQH /* selectionne les quai-horaires reserves pour le jour */
+        			$id_retrait = intval($id_retrait);
+        			
+        			$date_deverouillage = new DateTime('NOW');
+        			date_add($date_deverouillage, date_interval_create_from_date_string('20 minutes'));
+        			$date_deverouillage = $date_deverouillage->format('Y-m-d H:i:s');
+        			//on ajoute que 20min, pas 2h20 puisque MySQL est reglé sur GMC+0000
+        			$id_cli = intval($id_cli);
+        			
+        			//définition des paramètres
+        			$pp->bindParam(1, $id_retrait, PDO::PARAM_INT);
+                    $pp->bindParam(2, $date_deverouillage, PDO::PARAM_STR);
+        			$pp->bindParam(3, $id_retrait, PDO::PARAM_INT);	
+        			$pp->bindParam(4, $id_cli, PDO::PARAM_INT);	
+                    
+                    $res = $pp->execute();
+                   
+                    
+                    } catch (PDOException $e) {
+                        $res = false;
+                        echo $query . "<br>";
+                        throw new Exception($e->getMessage());
+                    }
+                    
+                    return $quaiLibre;
+                }
+                
+                return $res;
+    		}
+    		else{
+    		    //sinon on retournes au choix des horaires
+    		    $jour = str_replace("/", "-", $jour);
+    		    header('Location: ../View/html/notreDrive.php?choixHoraire&date=' . $jour . '&retry');
+    		}
+    	
+    	
+    }
+
+    public static function rechercherQuaiLibre($heure, $date, $id_mag) {
+	    $query = "SELECT ID_QUAI, NUMQUAI FROM QUAI
+					WHERE QUAI.ID_QUAI not in (
+                    
+                    	select RETRAIT.ID_QUAI /* selectionne les quai reserves pour l'horaire a tel magasin */
                     	from RETRAIT
                     	inner join QUAI on QUAI.ID_QUAI = RETRAIT.ID_QUAI
-                    	where RETRAIT.DATE = ? and QUAI.ID_MAGASIN = ?
-                    );"
+                    	where RETRAIT.DATE = ? and QUAI.ID_MAGASIN = ? and RETRAIT.HEURE = ?
+                    )
+                    ORDER BY NUMQUAI
+                    LIMIT 1;";
 					
 					
 		include_once("../base.php");
@@ -245,24 +313,26 @@ class ControllerRetrait {
 
             $pp = $db->prepare($query);
             
-			$id_prod = intval($id_prod);
-			$id_com = intval($id_com);
-			
+			$id_mag = intval($id_mag);
+		
+			$year = substr($date, -4);
+    			$mon = substr($date, 3,2);
+    			$day = substr($date, 0,2);
+    			$jourSQL = $year . '-' . $mon . '-' . $day;
+    			
 			//définition des paramètres
-			$pp->bindParam(1, $id_prod, PDO::PARAM_INT);
-            $pp->bindParam(2, $id_com, PDO::PARAM_INT);
+			$pp->bindParam(1, $jourSQL, PDO::PARAM_STR);
+            $pp->bindParam(2, $id_mag, PDO::PARAM_INT);
+            $pp->bindParam(3, $heure, PDO::PARAM_STR);
 		
             $res = $pp->execute();
+            
             $res = $pp->fetch(PDO::FETCH_OBJ);
             
             if($res != false)
             {
-                $contient = array();
-                $contient['id_quai'] = intval($res->ID_QUAI);
-                $contient['numquai'] = intval($res->NUMQUAI);
-
-                
-                return $contient;
+               
+                return $res;
             }
             
             
@@ -274,5 +344,74 @@ class ControllerRetrait {
         
         return $res;
     }
+    
+    
+    public static function getRetraitByCom($id_com) {
+	    $query = "SELECT * FROM RETRAIT WHERE ID_COMMANDE=?;";
+					
+					
+		include_once("../base.php");
+        try {   
+            $db = Base::getConnection();
 
+            $pp = $db->prepare($query);
+            
+			$id_com = intval($id_com);
+		
+		
+			$pp->bindParam(1, $id_com, PDO::PARAM_INT);
+            
+		
+            $res = $pp->execute();
+            
+            $res = $pp->fetch(PDO::FETCH_OBJ);
+            
+             
+                return $res;
+            
+            
+            
+        } catch (PDOException $e) {
+            $res = false;
+            echo $query . "<br>";
+            throw new Exception($e->getMessage());
+        }
+        
+        return $res;
+    }
+    
+    public static function getQuaiById($id_quai) {
+	    $query = "SELECT * FROM QUAI WHERE ID_QUAI=?;";
+					
+					
+		include_once("../base.php");
+        try {   
+            $db = Base::getConnection();
+
+            $pp = $db->prepare($query);
+            
+			$id_quai = intval($id_quai);
+		
+		
+			$pp->bindParam(1, $id_quai, PDO::PARAM_INT);
+            
+		
+            $res = $pp->execute();
+            
+            $res = $pp->fetch(PDO::FETCH_OBJ);
+            
+             
+                return $res;
+            
+            
+            
+        } catch (PDOException $e) {
+            $res = false;
+            echo $query . "<br>";
+            throw new Exception($e->getMessage());
+        }
+        
+        return $res;
+    }
+}
 ?>

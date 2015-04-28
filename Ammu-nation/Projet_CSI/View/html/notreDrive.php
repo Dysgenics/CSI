@@ -123,7 +123,8 @@ if (isset($_SESSION['email'])) {
 	else if(isset($_GET['prod'])) {
 		ControllerProduit::DetailProduit($_GET['prod']);
 	}
-	else if(isset($_GET['choixHoraire'])) {
+	else if(isset($_GET['choixHoraire'])) 
+	{
 	    if(!isset($_GET['date']))
 	    {
 	        $date = new DateTime('NOW');
@@ -137,6 +138,11 @@ if (isset($_SESSION['email'])) {
 	        
 	    }
 		$horaires = ControllerRetrait::afficherHorairesLibres($_SESSION['mag']['id_magasin'], $date->format('d/m/Y'));	
+		
+		if(isset($_GET['retry'])){
+		    echo '<h3 class="erreur">L\'horaire que vous avez choisi vient d\'etre completement reservé. Veuillez en choisir un autre</h3>';
+		}
+		
 		
 		echo ' <table><tr><td> <form name="formChoixHoraire" action="../../Controller/AJAXController.php" method="POST">
                 <div align="center"><br>
@@ -194,7 +200,37 @@ if (isset($_SESSION['email'])) {
 		        </div>
                 </form></td></tr><table>';
 	
-	} else {
+	} 
+	else if(isset($_GET['validerCom'])) 
+	{
+		echo '  <p>Commande numero ' . $_GET["com"] . '<br>
+		            A retirer au magasin ' . $_SESSION["mag"]['nom_magasin'] . ' <br>
+		            '. $_SESSION['mag']['num_rue'] .' ' . $_SESSION["mag"]["nom_rue"] . ' <br>';
+		            
+		            if($_SESSION['mag']['cp'] != null)
+		                echo $_SESSION['mag']['cp'];
+		                
+		           echo ' ' . $_SESSION["mag"]["ville"] . '     <br>
+		           Le ' . $_GET['jour'] .  ' à '. $_GET['heure'] . ' <br>
+		           Au quai numéro '. $_GET["quai"] . '<br> NB: votre quai est verouillé pendant 20 minutes pour l\'horaire choisi. Au dela, il se peut que votre numéro de quai
+		            change ou que tous les quais soient reservé pour cet horaire. Si c\'est le cas, d\'autres horaires vous seront proposés.</p>
+		        <a href="../../Controller/AJAXController.php?a=validerCom&id_com=' . $_SESSION["id_com"] . '&jour='. $_GET['jour'] . '&heure='. $_GET['heure'] . '&quai=' . $_GET['quai'] . '" class="aBtn">Valider la commande</a>';
+	} 
+	else if(isset($_GET['comValidee'])) 
+	{
+		echo '  <h3 class="success">Commande validee !</h3>';
+		echo '  <p>Commande numero ' . $_GET["com"] . '<br>
+		            A retirer au magasin ' . $_SESSION["mag"]['nom_magasin'] . ' <br>
+		            '. $_SESSION['mag']['num_rue'] .' ' . $_SESSION["mag"]["nom_rue"] . ' <br>';
+		            
+		            if($_SESSION['mag']['cp'] != null)
+		                echo $_SESSION['mag']['cp'];
+		                
+		           echo ' ' . $_SESSION["mag"]["ville"] . '     <br>
+		           Le ' . $_GET['jour'] .  ' à '. $_GET['heure'] . ' <br>
+		           Au quai numéro '. $_GET["quai"] . '<br> </p>';
+	}
+	else {
 		if(isset($_SESSION['num_categ']) && $_SESSION['num_categ'] != -1) {
 			ControllerProduit::AfficherProduitCateg($_SESSION['num_mag'], $_SESSION['num_categ']);
 		} else {
