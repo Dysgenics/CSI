@@ -189,6 +189,90 @@ class ControllerRetrait {
 		echo $output;
 		//var_dump($output);
 	}
+	
+	public static function reserverHoraire($jour, $heure, $id_cli, $id_mag, $id_com) {
+	
+	include_once("../../base.php");
+	
+	 $contientdeja = ControllerRetrait::rechercherQuai();
+	
+			if($contientDeja == false)
+		{
+		    $query = "INSERT INTO RETRAIT
+			VALUES (?,?,?);";
+			
+			try {   
+            $db = Base::getConnection();
+
+            $pp = $db->prepare($query);
+            
+			$id_mag = intval($id_mag);
+			$id_com = intval($id_com);
+			$q = intval($q);
+			
+			//définition des paramètres
+			$pp->bindParam(1, $id_prod, PDO::PARAM_INT);
+            $pp->bindParam(2, $id_mag, PDO::PARAM_INT);
+			$pp->bindParam(3, $q, PDO::PARAM_INT);	
+            $res = $pp->execute();
+            
+            } catch (PDOException $e) {
+                $res = false;
+                echo $query . "<br>";
+                throw new Exception($e->getMessage());
+            }
+		}
+	
+	
 }
+
+    public static function rechercherQuai($date) {
+	    $query = "SELECT ID_QUAI, NUMQUAI FROM QUAI
+					INNER JOIN HORAIRE 
+					WHERE DATE =?
+                    and CONCAT(QUAI.ID_QUAI, HORAIRE.HEURE) not in (
+                    
+                    	select CONCAT(RETRAIT.ID_QUAI, RETRAIT.HEURE) as CQH /* selectionne les quai-horaires reserves pour le jour */
+                    	from RETRAIT
+                    	inner join QUAI on QUAI.ID_QUAI = RETRAIT.ID_QUAI
+                    	where RETRAIT.DATE = ? and QUAI.ID_MAGASIN = ?
+                    );"
+					
+					
+		include_once("../base.php");
+        try {   
+            $db = Base::getConnection();
+
+            $pp = $db->prepare($query);
+            
+			$id_prod = intval($id_prod);
+			$id_com = intval($id_com);
+			
+			//définition des paramètres
+			$pp->bindParam(1, $id_prod, PDO::PARAM_INT);
+            $pp->bindParam(2, $id_com, PDO::PARAM_INT);
+		
+            $res = $pp->execute();
+            $res = $pp->fetch(PDO::FETCH_OBJ);
+            
+            if($res != false)
+            {
+                $contient = array();
+                $contient['id_quai'] = intval($res->ID_QUAI);
+                $contient['numquai'] = intval($res->NUMQUAI);
+
+                
+                return $contient;
+            }
+            
+            
+        } catch (PDOException $e) {
+            $res = false;
+            echo $query . "<br>";
+            throw new Exception($e->getMessage());
+        }
+        
+        return $res;
+    }
 
 ?>
