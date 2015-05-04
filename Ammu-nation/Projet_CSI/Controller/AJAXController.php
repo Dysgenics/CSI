@@ -19,7 +19,7 @@ else if(isset($_POST['action'])){
         //$quaiLibre = ControllerRetrait::rechercherQuaiLibre($_POST['heure'],$_POST['jour'],$_POST['id_mag']);
         			
         if($quaiReserve != false)
-            header('Location: ../View/html/notreDrive.php?validerCom&jour='. $_POST['jour'] . '&heure='. $_POST['heure'] . '&quai=' . $quaiReserve->NUMQUAI . '&com=' . $retrait->ID_COMMANDE);
+            header('Location: ../View/html/notreDrive.php?validerCom&jour='. $_POST['jour'] . '&heure='. $_POST['heure'] . '&quai=' . $quaiReserve->NUMQUAI . '&com=' . $_POST['id_com']);
     }
 }
 
