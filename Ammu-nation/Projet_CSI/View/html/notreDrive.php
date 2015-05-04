@@ -115,7 +115,7 @@ if (isset($_SESSION['email'])) {
 
 <div class="Zone_produits">
 <?php
-    var_dump($_SESSION);
+    //var_dump($_SESSION);
     if(isset($_GET['panier']))
     {
         ControllerContient::AfficherPanier($_SESSION['id_com']);
